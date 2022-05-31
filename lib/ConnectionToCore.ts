@@ -130,6 +130,7 @@ export default class ConnectionToCore<
     } finally {
       resolvable.resolve();
     }
+    return this.disconnectPromise;
   }
 
   public async sendRequest<T extends keyof ICoreApiHandlers>(
