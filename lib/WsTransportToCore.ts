@@ -30,16 +30,18 @@ export default class WsTransportToCore<
   private connectPromise: IResolvablePromise<Error | null>;
   private webSocket: WebSocket;
   private events = new EventSubscriber();
+  private readonly hostPromise: Promise<void>;
 
-  constructor(host: string) {
+  constructor(host: string | Promise<string>) {
     super();
-    if (!host.includes('://')) {
-      host = `ws://${host}`;
+    if (typeof host == 'string') {
+      this.setHost(host);
     }
-    this.host = host;
     this.onMessage = this.onMessage.bind(this);
     this.disconnect = this.disconnect.bind(this);
     this.onConnectError = this.onConnectError.bind(this);
+    this.setHost = this.setHost.bind(this);
+    this.hostPromise = Promise.resolve(host).then(this.setHost);
   }
 
   public async send(payload: RequestPayload): Promise<void> {
@@ -82,6 +84,7 @@ export default class WsTransportToCore<
     if (!this.connectPromise) {
       this.connectPromise = new Resolvable();
 
+      await this.hostPromise;
       const webSocket = new WebSocket(this.host);
       this.events.group(
         'preConnect',
@@ -112,5 +115,13 @@ export default class WsTransportToCore<
   private onConnectError(error: Error): void {
     if (error instanceof Error) this.connectPromise.resolve(error);
     else this.connectPromise.resolve(new Error(`Error connecting to Websocket host -> ${error}`));
+  }
+
+  private setHost(host: string): void {
+    if (!host.includes('://')) {
+      this.host = `ws://${host}`;
+    } else {
+      this.host = host;
+    }
   }
 }
