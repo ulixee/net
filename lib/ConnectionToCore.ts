@@ -184,7 +184,7 @@ export default class ConnectionToCore<
   ): void {
     if ('responseId' in payload) {
       this.onResponse(payload);
-    } else if ('listenerId' in payload) {
+    } else if ('listenerId' in payload || 'eventType' in payload) {
       this.onEvent(payload);
     } else {
       throw new Error(`message could not be processed: ${JSON.stringify(payload)}`);
