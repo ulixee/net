@@ -27,25 +27,32 @@ export default class HttpTransportToClient<IClientApiSpec extends IApiHandlers, 
       res.writeHead(500);
       res.end(err.toString());
     }
+    this.emit('disconnected');
     return Promise.resolve();
   }
 
   public async readRequest(): Promise<void> {
     const req = this.request;
+    const url = new URL(req.url, 'http://localhost/');
 
     const body: Buffer[] = [];
     for await (const chunk of req) {
       body.push(chunk);
     }
-    const bodyText = Buffer.concat(body).toString();
-    const url = new URL(req.url, 'http://localhost/');
-    const command = url.pathname.replace(/\//g, '') as any;
     let args: any;
-    if (req.headers['content-type'] === 'text/json') {
-      args = TypeSerializer.parse(bodyText);
-    } else {
-      args = QueryString.parse(bodyText);
+    if (body.length) {
+      const bodyText = Buffer.concat(body).toString();
+      if (req.headers['content-type'] === 'text/json') {
+        args = TypeSerializer.parse(bodyText);
+      } else {
+        args = QueryString.parse(bodyText);
+      }
     }
+    args ??= {};
+    const queryParams = Object.fromEntries(url.searchParams.entries());
+    Object.assign(args, queryParams);
+
+    const command = url.pathname.replace(/\//g, '') as any;
 
     this.emit('message', { args, command } as any);
   }

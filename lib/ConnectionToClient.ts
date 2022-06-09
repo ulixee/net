@@ -54,7 +54,7 @@ export default class ConnectionToClient<IClientApiHandlers extends IApiHandlers,
     let data: any;
     try {
       const handler = this.apiHandlers[command];
-      if (!handler) throw new Error(`Unknown api requested: ${command}`);
+      if (!handler) throw new Error(`Unknown api requested: ${String(command)}`);
       data = await handler(...args);
     } catch (error) {
       log.error('Error running api', { error, sessionId: args[0]?.heroSessionId });
