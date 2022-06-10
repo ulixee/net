@@ -1,10 +1,10 @@
 import TypeSerializer from '@ulixee/commons/lib/TypeSerializer';
-import ITransportToClient, { ITransportToClientEvents } from '../interfaces/ITransportToClient';
 import { IncomingMessage, ServerResponse } from 'http';
 import { URL } from 'url';
 import '@ulixee/commons/lib/SourceMapSupport';
 import * as QueryString from 'querystring';
 import { TypedEventEmitter } from '@ulixee/commons/lib/eventUtils';
+import ITransportToClient, { ITransportToClientEvents } from '../interfaces/ITransportToClient';
 import IApiHandlers from '../interfaces/IApiHandlers';
 
 export default class HttpTransportToClient<IClientApiSpec extends IApiHandlers, IEventSpec = any>

@@ -1,13 +1,13 @@
-import ITransportToCore, { ITransportToCoreEvents } from '../interfaces/ITransportToCore';
 import IResolvablePromise from '@ulixee/commons/interfaces/IResolvablePromise';
 import TypeSerializer from '@ulixee/commons/lib/TypeSerializer';
 import * as WebSocket from 'ws';
 import EventSubscriber from '@ulixee/commons/lib/EventSubscriber';
 import Resolvable from '@ulixee/commons/lib/Resolvable';
-import DisconnectedError from '../errors/DisconnectedError';
-import { isWsOpen, sendWsCloseUnexpectedError, wsSend } from './WsUtils';
 import { CanceledPromiseError } from '@ulixee/commons/interfaces/IPendingWaitEvent';
 import { TypedEventEmitter } from '@ulixee/commons/lib/eventUtils';
+import DisconnectedError from '../errors/DisconnectedError';
+import { isWsOpen, sendWsCloseUnexpectedError, wsSend } from './WsUtils';
+import ITransportToCore, { ITransportToCoreEvents } from '../interfaces/ITransportToCore';
 import IApiHandlers from '../interfaces/IApiHandlers';
 import ICoreRequestPayload from '../interfaces/ICoreRequestPayload';
 import ICoreResponsePayload from '../interfaces/ICoreResponsePayload';
@@ -34,7 +34,7 @@ export default class WsTransportToCore<
 
   constructor(host: string | Promise<string>) {
     super();
-    if (typeof host == 'string') {
+    if (typeof host === 'string') {
       this.setHost(host);
     }
     this.onMessage = this.onMessage.bind(this);

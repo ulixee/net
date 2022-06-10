@@ -1,7 +1,7 @@
 import TypeSerializer from '@ulixee/commons/lib/TypeSerializer';
+import ITypedEventEmitter from '@ulixee/commons/interfaces/ITypedEventEmitter';
 import EmittingTransportToCore from './EmittingTransportToCore';
 import EmittingTransportToClient from './EmittingTransportToClient';
-import ITypedEventEmitter from '@ulixee/commons/interfaces/ITypedEventEmitter';
 import IApiHandlers from '../interfaces/IApiHandlers';
 
 export default class TransportBridge<IClientApiSpec extends IApiHandlers, IEventSpec = any> {

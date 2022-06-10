@@ -1,10 +1,10 @@
 import TypeSerializer from '@ulixee/commons/lib/TypeSerializer';
 import * as WebSocket from 'ws';
-import { sendWsCloseUnexpectedError, wsSend } from './WsUtils';
 import { CanceledPromiseError } from '@ulixee/commons/interfaces/IPendingWaitEvent';
-import ITransportToClient, { ITransportToClientEvents } from '../interfaces/ITransportToClient';
 import EventSubscriber from '@ulixee/commons/lib/EventSubscriber';
 import { TypedEventEmitter } from '@ulixee/commons/lib/eventUtils';
+import ITransportToClient, { ITransportToClientEvents } from '../interfaces/ITransportToClient';
+import { sendWsCloseUnexpectedError, wsSend } from './WsUtils';
 import IApiHandlers from '../interfaces/IApiHandlers';
 
 export default class WsTransportToClient<IClientApiSpec extends IApiHandlers, IEventSpec = any>

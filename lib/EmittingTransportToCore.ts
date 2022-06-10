@@ -1,7 +1,7 @@
 import '@ulixee/commons/lib/SourceMapSupport';
 import ITypedEventEmitter from '@ulixee/commons/interfaces/ITypedEventEmitter';
-import ITransportToCore, { ITransportToCoreEvents } from '../interfaces/ITransportToCore';
 import { TypedEventEmitter } from '@ulixee/commons/lib/eventUtils';
+import ITransportToCore, { ITransportToCoreEvents } from '../interfaces/ITransportToCore';
 import IApiHandlers from '../interfaces/IApiHandlers';
 import ICoreRequestPayload from '../interfaces/ICoreRequestPayload';
 

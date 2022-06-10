@@ -1,7 +1,7 @@
+import { AddressInfo, Server } from 'ws';
 import TransportBridge from '../lib/TransportBridge';
 import ConnectionToClient from '../lib/ConnectionToClient';
 import ConnectionToCore from '../lib/ConnectionToCore';
-import { AddressInfo, Server } from 'ws';
 import WsTransportToClient from '../lib/WsTransportToClient';
 import WsTransportToCore from '../lib/WsTransportToCore';
 
